@@ -1,0 +1,38 @@
+name: Python CI for GithubActions Project
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "GithubActions/**"  # Trigger only when changes happen inside GithubActions/
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "GithubActions/**"  # Trigger only on PRs modifying files inside GithubActions/
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          if [ -f GithubActions/requirements.txt ]; then
+            pip install -r GithubActions/requirements.txt
+          fi
+
+      - name: Test with pytest
+        run: |
+          if [ -d GithubActions/tests ]; then
+            pytest GithubActions/tests
+          fi
