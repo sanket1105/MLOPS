@@ -24,7 +24,7 @@ r = redis.Redis(host="redis", port=6379, decode_responses=True)
 
 @app.route("/")
 def home():
-    # Increment the visit count  
+    # Increment the visit count
     count = r.incr("visit_count")
     return f"Hello! You have visited this page {count} times."
 
