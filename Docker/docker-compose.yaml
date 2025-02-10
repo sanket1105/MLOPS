@@ -1,0 +1,11 @@
+version : "3.0"
+services:
+  web:
+    image: web-app
+    build: .
+    ports:
+      - "5001:5000"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
