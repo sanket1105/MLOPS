@@ -30,7 +30,10 @@ jobs:
           if [ -f GithubActions/requirements.txt ]; then
             pip install -r GithubActions/requirements.txt
           fi
-
+      - name: Checkout submodules
+        run: |
+          git submodule update --init --recursive
+          
       - name: Test with pytest
         run: |
           if [ -d GithubActions/tests ]; then
